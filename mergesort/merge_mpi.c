@@ -31,7 +31,7 @@ int * merge(int *A, int asize, int *B, int bsize) {
 
 	/* printf("asize=%d bsize=%d\n", asize, bsize); */
 
-	C = malloc(csize*sizeof(int));
+	C = (int *) malloc(csize*sizeof(int));
 	while ((ai < asize) && (bi < bsize)) {
 		if (A[ai] <= B[bi]) {
 			C[ci] = A[ai];
@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 		srandom(clock());
 		s = arraySize / p;
 		r = arraySize % p;
-		data = malloc((arraySize + s - r) * sizeof(int));
+		data = (int *) malloc((arraySize + s - r) * sizeof(int));
 		for(i = 0; i < arraySize; i++) {
 			data[i] = random();
 		}
@@ -131,14 +131,14 @@ int main(int argc, char **argv) {
 		}
 
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = malloc(s * sizeof(int));
+		chunk = (int *) malloc(s * sizeof(int));
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s - 1);
 		/* showVector(chunk, s, id); */
 	}
 	else {
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = malloc(s * sizeof(int));
+		chunk = (int *) malloc(s * sizeof(int));
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s-1);
 		/* showVector(chunk, s, id); */
@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
 		if (id % (2 * step) == 0) {
 			if (id + step < p) {
 				MPI_Recv(&m, 1, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
-				other = malloc(m * sizeof(int));
+				other = (int *) malloc(m * sizeof(int));
 				MPI_Recv(other, m, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
 				chunk = merge(chunk, s, other, m);
 				s += m;
