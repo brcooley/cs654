@@ -6,8 +6,8 @@
 #include <stdlib.h>
 using namespace std;
 
-vector<long> merge(const vector<long>& left, const vector<long>& right) {
-	vector<long> result;
+vector<int> merge(const vector<int>& left, const vector<int>& right) {
+	vector<int> result;
 	unsigned left_it = 0, right_it = 0;
 
 	while(left_it < left.size() && right_it < right.size())	{
@@ -35,7 +35,7 @@ vector<long> merge(const vector<long>& left, const vector<long>& right) {
 	return result;
 }
 
-vector<long> mergesort(vector<long>& vec, int threads) {
+vector<int> mergesort(vector<int>& vec, int threads) {
 	// Termination condition: List is completely sorted if it
 	// only contains a single element.
 	if(vec.size() == 1)	{
@@ -43,10 +43,10 @@ vector<long> mergesort(vector<long>& vec, int threads) {
 	}
 
 	// Determine the location of the middle element in the vector
-	std::vector<long>::iterator middle = vec.begin() + (vec.size() / 2);
+	std::vector<int>::iterator middle = vec.begin() + (vec.size() / 2);
 
-	vector<long> left(vec.begin(), middle);
-	vector<long> right(middle, vec.end());
+	vector<int> left(vec.begin(), middle);
+	vector<int> right(middle, vec.end());
 
 	// Perform a merge sort on the two smaller vectors
 	if (threads > 1) {
@@ -68,6 +68,12 @@ vector<long> mergesort(vector<long>& vec, int threads) {
 	}
 
 	return merge(left, right);
+}
+
+double getTime() {
+	timeval thetime;
+	gettimeofday( &thetime, 0 );
+	return thetime.tv_sec + thetime.tv_usec / 1000000.0;
 }
 
 int main(int argc, char** argv) {
