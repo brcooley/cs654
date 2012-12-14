@@ -2,8 +2,6 @@
 #include <mpi.h>
 #include <sys/time.h>
 
-#define N 10000000
-
 void showVector(int *v, int n, int id);
 int * merge(int *A, int asize, int *B, int bsize);
 void swap(int *v, int i, int j);
@@ -16,9 +14,10 @@ double startTime, stopTime;
 void showVector(int *v, int n, int id) {
 	int i;
 	printf("%d: ",id);
-	for(i=0;i<n;i++)
+	for(i = 0 ; i < n; i++) {
 		printf("%d ",v[i]);
-	putchar('\n');
+	}
+	printf("\n");
 }
 
 int * merge(int *A, int asize, int *B, int bsize) {
@@ -32,7 +31,7 @@ int * merge(int *A, int asize, int *B, int bsize) {
 
 	/* printf("asize=%d bsize=%d\n", asize, bsize); */
 
-	C = (int *)malloc(csize*sizeof(int));
+	C = malloc(csize*sizeof(int));
 	while ((ai < asize) && (bi < bsize)) {
 		if (A[ai] <= B[bi]) {
 			C[ci] = A[ai];
@@ -43,17 +42,21 @@ int * merge(int *A, int asize, int *B, int bsize) {
 		}
 	}
 
-	if (ai >= asize)
-		for (i = ci; i < csize; i++, bi++)
+	if (ai >= asize) {
+		for (i = ci; i < csize; i++, bi++) {
 			C[i] = B[bi];
-	else if (bi >= bsize)
-		for (i = ci; i < csize; i++, ai++)
+		}
+	} else if (bi >= bsize) {
+		for (i = ci; i < csize; i++, ai++) {
 			C[i] = A[ai];
-
-	for (i = 0; i < asize; i++)
+		}
+	}
+	for (i = 0; i < asize; i++) {
 		A[i] = C[i];
-	for (i = 0; i < bsize; i++)
+	}
+	for (i = 0; i < bsize; i++) {
 		B[i] = C[asize+i];
+	}
 
 	/* showVector(C, csize, 0); */
 	return C;
@@ -97,12 +100,16 @@ int main(int argc, char **argv) {
 	int * data;
 	int * chunk;
 	int * other;
-	int m, n = N;
+	int m;
 	int id, p;
 	int s = 0;
 	int i;
 	int step;
 	MPI_Status status;
+
+	if (argc != 2) { printf("usage: ./merge_mpi ARRAY_SIZE\n"); exit(1); }
+
+	int arraySize = atoi(argv[1]);
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &id);
@@ -111,27 +118,27 @@ int main(int argc, char **argv) {
 	if (id == 0)	{
 		int r;
 		srandom(clock());
-		s = n / p;
-		r = n % p;
-		data = (int *)malloc((n + s - r) * sizeof(int));
-		for(i = 0; i < n; i++) {
+		s = arraySize / p;
+		r = arraySize % p;
+		data = malloc((arraySize + s - r) * sizeof(int));
+		for(i = 0; i < arraySize; i++) {
 			data[i] = random();
 		}
 		if (r != 0) {
-			for (i = n; i < n + s - r; i++)
+			for (i = arraySize; i < arraySize + s - r; i++)
 				data[i] = 0;
 			s += 1;
 		}
 
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = (int *)malloc(s * sizeof(int));
+		chunk = malloc(s * sizeof(int));
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s - 1);
 		/* showVector(chunk, s, id); */
 	}
 	else {
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = (int *)malloc(s * sizeof(int));
+		chunk = malloc(s * sizeof(int));
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s-1);
 		/* showVector(chunk, s, id); */
@@ -143,7 +150,7 @@ int main(int argc, char **argv) {
 		if (id % (2 * step) == 0) {
 			if (id + step < p) {
 				MPI_Recv(&m, 1, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
-				other = (int *)malloc(m*sizeof(int));
+				other = malloc(m * sizeof(int));
 				MPI_Recv(other, m, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
 				chunk = merge(chunk, s, other, m);
 				s += m;
