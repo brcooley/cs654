@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <stdio.h>
-#include <time.h>
+#include <sys/time.h>
 #include <stdlib.h>
 using namespace std;
 
