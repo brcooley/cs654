@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <mpi.h>
+#include <stdlib.h>
+#include <fenv.h>
 #include <sys/time.h>
 
 void showVector(int *v, int n, int id);
