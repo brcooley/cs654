@@ -40,7 +40,7 @@ int merge(int,long,long,long);
 int main(int argc, char *argv[]) {
 	if (argc != 3) { printf("usage: ./merge_cuda DEVICE ARRAY_SIZE NUM_THREADS\n"); exit(1); }
 
-	int *a, *dev_a, *dev_b;
+	int *a, *dev_a; //, *dev_b;
 	double totalTime, startTime;
 
 	totalTime = 0;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	
 	/* Initialize the sequence. */
 	srand(654);
-	a = malloc(sizeof(int) * arraySize);
+	a = (int *) malloc(sizeof(int) * arraySize);
 	for(int i = 0; i < arraySize; i++) {
 		a[i] = ((int) random() / 100000.0);
 	}
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
 	// numThreads can range from 1..7 => {1,4,16,64,256,512,1024}
 	if (numThreads <= 2) {
-		dim3 blocks((int) pow(4,(numThreads-1), 1, 1);
+		dim3 blocks((int) pow(4,(numThreads-1)), 1, 1);
 		dim3 threads(1, 1, 1);
 	} else if (numThreads <= 4) {
 		dim3 blocks(4*(numThreads-2), 4*(numThreads-2), 1);
