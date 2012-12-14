@@ -65,13 +65,13 @@ int main(int argc, char *argv[]) {
 	// numThreads can range from 1..7 => {1,4,16,64,256,512,1024}
 	int bH, bW, t;
 	if (numThreads <= 2) {
-		bH = ((int) pow(4,(numThreads-1));
+		bH = (int) pow(4, numThreads-1);
 		bw = 1;
 	} else if (numThreads <= 4) {
 		bH = bW = 4*(numThreads-2);
 	} else {
 		bH = bW = 16;
-		t = ((int) pow(2,numThreads - 5));
+		t = ((int) pow(2, numThreads - 5);
 	}
 
 	dim3 blocks(bH, bW, 1);
