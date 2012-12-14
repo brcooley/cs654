@@ -63,16 +63,19 @@ int main(int argc, char *argv[]) {
 	// cudaMemcpy(dev_b, &b, sizeof(int) * NUM_VALUES, cudaMemcpyHostToDevice);
 
 	// numThreads can range from 1..7 => {1,4,16,64,256,512,1024}
+	int bH, bW, t;
 	if (numThreads <= 2) {
-		dim3 blocks((int) pow(4,(numThreads-1)), 1, 1);
-		dim3 threads(1, 1, 1);
+		bH = ((int) pow(4,(numThreads-1));
+		bw = 1;
 	} else if (numThreads <= 4) {
-		dim3 blocks(4*(numThreads-2), 4*(numThreads-2), 1);
-		dim3 threads(1, 1, 1);
+		bH = bW = 4*(numThreads-2);
 	} else {
-		dim3 blocks(16, 16, 1);
-		dim3 threads(1*((int) pow(2,numThreads - 5)), 1, 1);
+		bH = bW = 16;
+		t = ((int) pow(2,numThreads - 5));
 	}
+
+	dim3 blocks(bH, bW, 1);
+	dim3 threads(t, 1, 1);
 
 	startTime = getTime();
 	mergesort<<<blocks,threads>>>(dev_a);
@@ -97,7 +100,7 @@ void mergesort(int *a) {
 	int threadId = threadIdx.x * blockDim.y + threadIdx.y;
 	int id = blockId * (blockDim.x * blockDim.y) + threadId;
 
-	int start =  * id;
+	// int start =  * id;
 }
 
 
