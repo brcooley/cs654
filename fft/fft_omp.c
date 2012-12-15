@@ -1,14 +1,29 @@
 //-lfftw3_omp -lfftw3 -lm
-/* cc -I$HOME/usr/include simple_example.c -L$HOME/usr/lib -lfftw3 -o simple_example */
  
 #include <fftw3.h>
 #include <math.h>
 #include <omp.h> 
-     
-int main(int argc, char **argv){
+#include <sys/time.h>
+
+
+double getTime() {
+    timeval thetime;
+    gettimeofday( &thetime, 0 );
+    return thetime.tv_sec + thetime.tv_usec / 1000000.0;
+}
+
+
+int main(int argc, char **argv) {
+
+    if (argc != 3) { printf("usage: ./fft_omp MATRIX_SIZE NUM_THREADS\n"); exit(1); }
+
+    omp_set_num_threads(atoi(argv[2])); //before the thing below it
+    const ptrdiff_t N0 = atoi(argv[1]);
+    const ptrdiff_t N1 = N0;
+    double startTime, totalTime;
+    endTime = 0;
+
     int fftwf_init_threads(void); //before calling any fftw routine
-    omp_set_num_threads(8); //before the thing below it
-    const ptrdiff_t N0 = 18, N1 = 18;
     fftwf_plan plan;
     fftwf_complex *data;
  
@@ -28,10 +43,12 @@ int main(int argc, char **argv){
           pdata += data[i*N1+j][0] * data[i*N1+j][0] + data[i*N1+j][1] * data[i*N1+j][1];
         }
     }
-    printf("power of original data is %f\n", pdata);
+    // printf("power of original data is %f\n", pdata);
  
     /* compute transforms, in-place, as many times as desired */
+    startTime = getTime();
     fftwf_execute(plan);
+    totalTime += getTime() - startTime;
  
     double normalization = sqrt((double)N0*N1);
     double ptransform = 0;
@@ -45,9 +62,11 @@ int main(int argc, char **argv){
         }
     }
  
-    printf("power of transform is %f\n", pdata);
+    // printf("power of transform is %f\n", pdata);
   
     fftwf_destroy_plan(plan);
-    fftwf_free(data); 
+    fftwf_free(data);
+
+    printf("%.5lf\n", totalTime);
     return 0;
 }
