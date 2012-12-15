@@ -1,0 +1,301 @@
+20121215:02:25:25
+1 threads on matrix size 4096 [1]: 
+2.00032
+1 threads on matrix size 4096 [2]: 
+2.01480
+1 threads on matrix size 4096 [3]: 
+2.00483
+1 threads on matrix size 4096 [4]: 
+2.01852
+1 threads on matrix size 4096 [5]: 
+2.02269
+1 threads on matrix size 4096 [6]: 
+2.01147
+1 threads on matrix size 4096 [7]: 
+2.02555
+1 threads on matrix size 4096 [8]: 
+2.02677
+1 threads on matrix size 4096 [9]: 
+2.06183
+1 threads on matrix size 4096 [10]: 
+2.01957
+2 threads on matrix size 4096 [1]: 
+1.75232
+2 threads on matrix size 4096 [2]: 
+1.75745
+2 threads on matrix size 4096 [3]: 
+1.74604
+2 threads on matrix size 4096 [4]: 
+1.78290
+2 threads on matrix size 4096 [5]: 
+1.79354
+2 threads on matrix size 4096 [6]: 
+1.75788
+2 threads on matrix size 4096 [7]: 
+1.74721
+2 threads on matrix size 4096 [8]: 
+1.75573
+2 threads on matrix size 4096 [9]: 
+1.75998
+2 threads on matrix size 4096 [10]: 
+1.74788
+4 threads on matrix size 4096 [1]: 
+0.92096
+4 threads on matrix size 4096 [2]: 
+0.92485
+4 threads on matrix size 4096 [3]: 
+0.90925
+4 threads on matrix size 4096 [4]: 
+0.91797
+4 threads on matrix size 4096 [5]: 
+0.91101
+4 threads on matrix size 4096 [6]: 
+0.93012
+4 threads on matrix size 4096 [7]: 
+0.93978
+4 threads on matrix size 4096 [8]: 
+0.92352
+4 threads on matrix size 4096 [9]: 
+0.92538
+4 threads on matrix size 4096 [10]: 
+0.92680
+8 threads on matrix size 4096 [1]: 
+0.55691
+8 threads on matrix size 4096 [2]: 
+0.56001
+8 threads on matrix size 4096 [3]: 
+0.55993
+8 threads on matrix size 4096 [4]: 
+0.54930
+8 threads on matrix size 4096 [5]: 
+0.55420
+8 threads on matrix size 4096 [6]: 
+0.55035
+8 threads on matrix size 4096 [7]: 
+0.55387
+8 threads on matrix size 4096 [8]: 
+0.55343
+8 threads on matrix size 4096 [9]: 
+0.55254
+8 threads on matrix size 4096 [10]: 
+0.55959
+16 threads on matrix size 4096 [1]: 
+0.48971
+16 threads on matrix size 4096 [2]: 
+0.48481
+16 threads on matrix size 4096 [3]: 
+0.48706
+16 threads on matrix size 4096 [4]: 
+0.48983
+16 threads on matrix size 4096 [5]: 
+0.48864
+16 threads on matrix size 4096 [6]: 
+0.48927
+16 threads on matrix size 4096 [7]: 
+0.47660
+16 threads on matrix size 4096 [8]: 
+0.48668
+16 threads on matrix size 4096 [9]: 
+0.48957
+16 threads on matrix size 4096 [10]: 
+0.48983
+1 threads on matrix size 8192 [1]: 
+4.18201
+1 threads on matrix size 8192 [2]: 
+4.14414
+1 threads on matrix size 8192 [3]: 
+4.19544
+1 threads on matrix size 8192 [4]: 
+4.17363
+1 threads on matrix size 8192 [5]: 
+4.14839
+1 threads on matrix size 8192 [6]: 
+4.14294
+1 threads on matrix size 8192 [7]: 
+4.13784
+1 threads on matrix size 8192 [8]: 
+4.14205
+1 threads on matrix size 8192 [9]: 
+4.16413
+1 threads on matrix size 8192 [10]: 
+4.14177
+2 threads on matrix size 8192 [1]: 
+2.40479
+2 threads on matrix size 8192 [2]: 
+2.40448
+2 threads on matrix size 8192 [3]: 
+2.40770
+2 threads on matrix size 8192 [4]: 
+2.40523
+2 threads on matrix size 8192 [5]: 
+2.42221
+2 threads on matrix size 8192 [6]: 
+2.41369
+2 threads on matrix size 8192 [7]: 
+2.42386
+2 threads on matrix size 8192 [8]: 
+2.40087
+2 threads on matrix size 8192 [9]: 
+2.40477
+2 threads on matrix size 8192 [10]: 
+2.42282
+4 threads on matrix size 8192 [1]: 
+1.24308
+4 threads on matrix size 8192 [2]: 
+1.24936
+4 threads on matrix size 8192 [3]: 
+1.23674
+4 threads on matrix size 8192 [4]: 
+1.24608
+4 threads on matrix size 8192 [5]: 
+1.24889
+4 threads on matrix size 8192 [6]: 
+1.24425
+4 threads on matrix size 8192 [7]: 
+1.25991
+4 threads on matrix size 8192 [8]: 
+1.25094
+4 threads on matrix size 8192 [9]: 
+1.24352
+4 threads on matrix size 8192 [10]: 
+1.24994
+8 threads on matrix size 8192 [1]: 
+1.23034
+8 threads on matrix size 8192 [2]: 
+1.23577
+8 threads on matrix size 8192 [3]: 
+1.23599
+8 threads on matrix size 8192 [4]: 
+1.25207
+8 threads on matrix size 8192 [5]: 
+1.24826
+8 threads on matrix size 8192 [6]: 
+1.22938
+8 threads on matrix size 8192 [7]: 
+1.24491
+8 threads on matrix size 8192 [8]: 
+1.23235
+8 threads on matrix size 8192 [9]: 
+1.23484
+8 threads on matrix size 8192 [10]: 
+1.23438
+16 threads on matrix size 8192 [1]: 
+0.64127
+16 threads on matrix size 8192 [2]: 
+0.63878
+16 threads on matrix size 8192 [3]: 
+0.64925
+16 threads on matrix size 8192 [4]: 
+0.64400
+16 threads on matrix size 8192 [5]: 
+0.64570
+16 threads on matrix size 8192 [6]: 
+0.64726
+16 threads on matrix size 8192 [7]: 
+0.64211
+16 threads on matrix size 8192 [8]: 
+0.65508
+16 threads on matrix size 8192 [9]: 
+0.63981
+16 threads on matrix size 8192 [10]: 
+0.64117
+1 threads on matrix size 16384 [1]: 
+39.38173
+1 threads on matrix size 16384 [2]: 
+39.24190
+1 threads on matrix size 16384 [3]: 
+38.89264
+1 threads on matrix size 16384 [4]: 
+39.35453
+1 threads on matrix size 16384 [5]: 
+39.01798
+1 threads on matrix size 16384 [6]: 
+39.19804
+1 threads on matrix size 16384 [7]: 
+39.02573
+1 threads on matrix size 16384 [8]: 
+39.42237
+1 threads on matrix size 16384 [9]: 
+38.94757
+1 threads on matrix size 16384 [10]: 
+39.26836
+2 threads on matrix size 16384 [1]: 
+27.35063
+2 threads on matrix size 16384 [2]: 
+27.41276
+2 threads on matrix size 16384 [3]: 
+27.37880
+2 threads on matrix size 16384 [4]: 
+27.36217
+2 threads on matrix size 16384 [5]: 
+27.43617
+2 threads on matrix size 16384 [6]: 
+27.53705
+2 threads on matrix size 16384 [7]: 
+27.48438
+2 threads on matrix size 16384 [8]: 
+27.63853
+2 threads on matrix size 16384 [9]: 
+27.47443
+2 threads on matrix size 16384 [10]: 
+27.54678
+4 threads on matrix size 16384 [1]: 
+9.37032
+4 threads on matrix size 16384 [2]: 
+9.32048
+4 threads on matrix size 16384 [3]: 
+9.27714
+4 threads on matrix size 16384 [4]: 
+9.29665
+4 threads on matrix size 16384 [5]: 
+9.30526
+4 threads on matrix size 16384 [6]: 
+9.44691
+4 threads on matrix size 16384 [7]: 
+9.35159
+4 threads on matrix size 16384 [8]: 
+9.51237
+4 threads on matrix size 16384 [9]: 
+9.28050
+4 threads on matrix size 16384 [10]: 
+9.33716
+8 threads on matrix size 16384 [1]: 
+9.29590
+8 threads on matrix size 16384 [2]: 
+9.33706
+8 threads on matrix size 16384 [3]: 
+9.27631
+8 threads on matrix size 16384 [4]: 
+9.30340
+8 threads on matrix size 16384 [5]: 
+9.27260
+8 threads on matrix size 16384 [6]: 
+9.18233
+8 threads on matrix size 16384 [7]: 
+9.26386
+8 threads on matrix size 16384 [8]: 
+9.47269
+8 threads on matrix size 16384 [9]: 
+9.17237
+8 threads on matrix size 16384 [10]: 
+9.30165
+16 threads on matrix size 16384 [1]: 
+7.91404
+16 threads on matrix size 16384 [2]: 
+7.80099
+16 threads on matrix size 16384 [3]: 
+7.82695
+16 threads on matrix size 16384 [4]: 
+7.78725
+16 threads on matrix size 16384 [5]: 
+8.07716
+16 threads on matrix size 16384 [6]: 
+8.16492
+16 threads on matrix size 16384 [7]: 
+7.92586
+16 threads on matrix size 16384 [8]: 
+8.10505
+16 threads on matrix size 16384 [9]: 
+7.80785
+16 threads on matrix size 16384 [10]: 
+7.83309

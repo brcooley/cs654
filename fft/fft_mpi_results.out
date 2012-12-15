@@ -1,0 +1,301 @@
+20121215:03:02:38
+1 processors on matrix size 4096 [1]: 
+1.21611
+1 processors on matrix size 4096 [2]: 
+1.21248
+1 processors on matrix size 4096 [3]: 
+1.26479
+1 processors on matrix size 4096 [4]: 
+1.22723
+1 processors on matrix size 4096 [5]: 
+1.21688
+1 processors on matrix size 4096 [6]: 
+1.21925
+1 processors on matrix size 4096 [7]: 
+1.23725
+1 processors on matrix size 4096 [8]: 
+1.27750
+1 processors on matrix size 4096 [9]: 
+1.23722
+1 processors on matrix size 4096 [10]: 
+1.26020
+2 processors on matrix size 4096 [1]: 
+0.75659
+2 processors on matrix size 4096 [2]: 
+0.75378
+2 processors on matrix size 4096 [3]: 
+0.75782
+2 processors on matrix size 4096 [4]: 
+0.75218
+2 processors on matrix size 4096 [5]: 
+0.76154
+2 processors on matrix size 4096 [6]: 
+0.76356
+2 processors on matrix size 4096 [7]: 
+0.77223
+2 processors on matrix size 4096 [8]: 
+0.76370
+2 processors on matrix size 4096 [9]: 
+0.77706
+2 processors on matrix size 4096 [10]: 
+0.76109
+4 processors on matrix size 4096 [1]: 
+0.43074
+4 processors on matrix size 4096 [2]: 
+0.39299
+4 processors on matrix size 4096 [3]: 
+0.42077
+4 processors on matrix size 4096 [4]: 
+0.41152
+4 processors on matrix size 4096 [5]: 
+0.40054
+4 processors on matrix size 4096 [6]: 
+0.39371
+4 processors on matrix size 4096 [7]: 
+0.39084
+4 processors on matrix size 4096 [8]: 
+0.44390
+4 processors on matrix size 4096 [9]: 
+0.39261
+4 processors on matrix size 4096 [10]: 
+0.43058
+8 processors on matrix size 4096 [1]: 
+1.30789
+8 processors on matrix size 4096 [2]: 
+1.30138
+8 processors on matrix size 4096 [3]: 
+1.28399
+8 processors on matrix size 4096 [4]: 
+1.28572
+8 processors on matrix size 4096 [5]: 
+1.31053
+8 processors on matrix size 4096 [6]: 
+1.27386
+8 processors on matrix size 4096 [7]: 
+1.29443
+8 processors on matrix size 4096 [8]: 
+1.31374
+8 processors on matrix size 4096 [9]: 
+1.32829
+8 processors on matrix size 4096 [10]: 
+1.35369
+16 processors on matrix size 4096 [1]: 
+0.94317
+16 processors on matrix size 4096 [2]: 
+0.90299
+16 processors on matrix size 4096 [3]: 
+0.88061
+16 processors on matrix size 4096 [4]: 
+0.86640
+16 processors on matrix size 4096 [5]: 
+0.88513
+16 processors on matrix size 4096 [6]: 
+0.91537
+16 processors on matrix size 4096 [7]: 
+0.89335
+16 processors on matrix size 4096 [8]: 
+0.87704
+16 processors on matrix size 4096 [9]: 
+0.87234
+16 processors on matrix size 4096 [10]: 
+0.89219
+1 processors on matrix size 8192 [1]: 
+4.58198
+1 processors on matrix size 8192 [2]: 
+4.59514
+1 processors on matrix size 8192 [3]: 
+4.58747
+1 processors on matrix size 8192 [4]: 
+4.59832
+1 processors on matrix size 8192 [5]: 
+4.58250
+1 processors on matrix size 8192 [6]: 
+4.60273
+1 processors on matrix size 8192 [7]: 
+4.58369
+1 processors on matrix size 8192 [8]: 
+4.58660
+1 processors on matrix size 8192 [9]: 
+4.59949
+1 processors on matrix size 8192 [10]: 
+4.60091
+2 processors on matrix size 8192 [1]: 
+2.91594
+2 processors on matrix size 8192 [2]: 
+2.93333
+2 processors on matrix size 8192 [3]: 
+2.89796
+2 processors on matrix size 8192 [4]: 
+2.91467
+2 processors on matrix size 8192 [5]: 
+2.93003
+2 processors on matrix size 8192 [6]: 
+2.89946
+2 processors on matrix size 8192 [7]: 
+2.93007
+2 processors on matrix size 8192 [8]: 
+2.90815
+2 processors on matrix size 8192 [9]: 
+2.96355
+2 processors on matrix size 8192 [10]: 
+2.89414
+4 processors on matrix size 8192 [1]: 
+1.53540
+4 processors on matrix size 8192 [2]: 
+1.53771
+4 processors on matrix size 8192 [3]: 
+1.62096
+4 processors on matrix size 8192 [4]: 
+1.56952
+4 processors on matrix size 8192 [5]: 
+1.60220
+4 processors on matrix size 8192 [6]: 
+1.67241
+4 processors on matrix size 8192 [7]: 
+1.54332
+4 processors on matrix size 8192 [8]: 
+1.55654
+4 processors on matrix size 8192 [9]: 
+1.53785
+4 processors on matrix size 8192 [10]: 
+1.67116
+8 processors on matrix size 8192 [1]: 
+4.65448
+8 processors on matrix size 8192 [2]: 
+4.62696
+8 processors on matrix size 8192 [3]: 
+4.50187
+8 processors on matrix size 8192 [4]: 
+4.36891
+8 processors on matrix size 8192 [5]: 
+4.54171
+8 processors on matrix size 8192 [6]: 
+4.62625
+8 processors on matrix size 8192 [7]: 
+4.48327
+8 processors on matrix size 8192 [8]: 
+4.65534
+8 processors on matrix size 8192 [9]: 
+4.45039
+8 processors on matrix size 8192 [10]: 
+4.65221
+16 processors on matrix size 8192 [1]: 
+3.81613
+16 processors on matrix size 8192 [2]: 
+3.90001
+16 processors on matrix size 8192 [3]: 
+3.80385
+16 processors on matrix size 8192 [4]: 
+3.77869
+16 processors on matrix size 8192 [5]: 
+3.78689
+16 processors on matrix size 8192 [6]: 
+3.78410
+16 processors on matrix size 8192 [7]: 
+3.84087
+16 processors on matrix size 8192 [8]: 
+3.99417
+16 processors on matrix size 8192 [9]: 
+3.81755
+16 processors on matrix size 8192 [10]: 
+3.80483
+1 processors on matrix size 16384 [1]: 
+24.31581
+1 processors on matrix size 16384 [2]: 
+24.19411
+1 processors on matrix size 16384 [3]: 
+24.44642
+1 processors on matrix size 16384 [4]: 
+24.15512
+1 processors on matrix size 16384 [5]: 
+24.44161
+1 processors on matrix size 16384 [6]: 
+24.36223
+1 processors on matrix size 16384 [7]: 
+24.37996
+1 processors on matrix size 16384 [8]: 
+24.22922
+1 processors on matrix size 16384 [9]: 
+24.43560
+1 processors on matrix size 16384 [10]: 
+24.28934
+2 processors on matrix size 16384 [1]: 
+14.82402
+2 processors on matrix size 16384 [2]: 
+14.84615
+2 processors on matrix size 16384 [3]: 
+14.88574
+2 processors on matrix size 16384 [4]: 
+14.79826
+2 processors on matrix size 16384 [5]: 
+14.81185
+2 processors on matrix size 16384 [6]: 
+14.87822
+2 processors on matrix size 16384 [7]: 
+14.83493
+2 processors on matrix size 16384 [8]: 
+15.26887
+2 processors on matrix size 16384 [9]: 
+14.93709
+2 processors on matrix size 16384 [10]: 
+14.90262
+4 processors on matrix size 16384 [1]: 
+7.94245
+4 processors on matrix size 16384 [2]: 
+7.90990
+4 processors on matrix size 16384 [3]: 
+7.96276
+4 processors on matrix size 16384 [4]: 
+7.91685
+4 processors on matrix size 16384 [5]: 
+7.89508
+4 processors on matrix size 16384 [6]: 
+7.92626
+4 processors on matrix size 16384 [7]: 
+7.90354
+4 processors on matrix size 16384 [8]: 
+8.04539
+4 processors on matrix size 16384 [9]: 
+7.91882
+4 processors on matrix size 16384 [10]: 
+7.88962
+8 processors on matrix size 16384 [1]: 
+20.14121
+8 processors on matrix size 16384 [2]: 
+19.77076
+8 processors on matrix size 16384 [3]: 
+19.63270
+8 processors on matrix size 16384 [4]: 
+19.92007
+8 processors on matrix size 16384 [5]: 
+19.84784
+8 processors on matrix size 16384 [6]: 
+19.58388
+8 processors on matrix size 16384 [7]: 
+20.15507
+8 processors on matrix size 16384 [8]: 
+19.48686
+8 processors on matrix size 16384 [9]: 
+19.48737
+8 processors on matrix size 16384 [10]: 
+20.19189
+16 processors on matrix size 16384 [1]: 
+16.35459
+16 processors on matrix size 16384 [2]: 
+16.76772
+16 processors on matrix size 16384 [3]: 
+17.34361
+16 processors on matrix size 16384 [4]: 
+17.17869
+16 processors on matrix size 16384 [5]: 
+16.84969
+16 processors on matrix size 16384 [6]: 
+16.76573
+16 processors on matrix size 16384 [7]: 
+16.35849
+16 processors on matrix size 16384 [8]: 
+16.81598
+16 processors on matrix size 16384 [9]: 
+16.71416
+16 processors on matrix size 16384 [10]: 
+16.73004

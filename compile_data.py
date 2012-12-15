@@ -2,6 +2,7 @@ import re
 import json
 
 def stats(raw):
+	# print("Working on " + str(raw))
 	return (min(raw), sum(raw)/len(raw), max(raw), sd(raw))
 
 def sd(raw):
@@ -20,7 +21,8 @@ def main():
 
 			v = 0
 			k = 0
-			last = (0, 0, 0)
+			last = (0, 0)
+			f.readline()
 
 			for line in f:
 				try:
@@ -28,12 +30,16 @@ def main():
 				except ValueError:
 					k = tuple(re.findall(r'[0-9]+', line))[:-1]
 					if new(k, last):
+						if last != (0, 0):
+							data[last].append(v)
 						data[k] = []
 						last = k
 					else:
 						data[k].append(v)
+			data[last].append(v)
 
 		for key in data.keys():
+			# print('{}: {}'.format(key, data[key]))
 			data[key] = stats(data[key])
 
 
