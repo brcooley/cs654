@@ -92,6 +92,7 @@ int main(int argc, char** argv) {
 	}
 
 	omp_set_num_threads(numThreads);
+	omp_set_nested(1);
 	startTime = getTime();
 	v = mergesort(v, numThreads);
 	totalTime = getTime() - startTime;
