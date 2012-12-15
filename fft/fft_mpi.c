@@ -18,10 +18,12 @@ int main(int argc, char **argv) {
 
 	const ptrdiff_t N0 = atoi(argv[1]);
 	const ptrdiff_t N1 = N0;
+	int id;
 	double startTime, totalTime;
 	totalTime = 0;
 
 	MPI_Init(&argc, &argv);
+	MPI_Comm_rank(MPI_COMM_WORLD, &id);
 	fftwf_mpi_init();
 
 	/* get local data size and allocate */
