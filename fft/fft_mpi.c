@@ -1,8 +1,9 @@
 #include <fftw3-mpi.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 double getTime() {
-	timeval thetime;
+	struct timeval thetime;
 	gettimeofday( &thetime, 0 );
 	return thetime.tv_sec + thetime.tv_usec / 1000000.0;
 }
@@ -46,6 +47,6 @@ int main(int argc, char **argv) {
 	fftwf_mpi_cleanup();
 	MPI_Finalize();
 
-	printf("%.5lf\n", endTime);
+	printf("%.5lf\n", totalTime);
 	return 0;
 }

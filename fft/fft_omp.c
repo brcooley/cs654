@@ -4,7 +4,7 @@
 #include <math.h>
 #include <omp.h> 
 #include <sys/time.h>
-
+#include <stdlib.h>
 
 double getTime() {
     timeval thetime;
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     const ptrdiff_t N0 = atoi(argv[1]);
     const ptrdiff_t N1 = N0;
     double startTime, totalTime;
-    endTime = 0;
+    totalTime = 0;
 
     int fftwf_init_threads(void); //before calling any fftw routine
     fftwf_plan plan;
