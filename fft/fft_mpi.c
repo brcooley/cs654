@@ -38,14 +38,23 @@ int main(int argc, char **argv) {
 
 	/* compute transforms, in-place, as many times as desired */
 	
-	startTime = getTime();
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (id == 0) {
+		startTime = getTime();
+	}
 	fftwf_execute(plan);
-	totalTime += getTime() - startTime;
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (id == 0) {
+		totalTime += getTime() - startTime;
+	}
 
 	fftwf_destroy_plan(plan);
 	fftwf_mpi_cleanup();
-	MPI_Finalize();
 
-	printf("%.5lf\n", endTime);
+	if (id == 0) {
+		printf("%.5f\n", totalTime);
+	}
+
+	MPI_Finalize();
 	return 0;
 }
