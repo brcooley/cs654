@@ -1,4 +1,5 @@
 #include <cuda.h>
+#include <cufft.h>
 #include <math.h>
 #include <fenv.h>
 #include <stdio.h>
@@ -22,35 +23,30 @@ int main(int argc, char *argv[]) {
 	int matrixSize = atoi(argv[2]);
 	int numThreads = atoi(argv[3]);
 
-	int n[2] = {matrixSize, matrixSize};
-
 	char x = ((cudaSetDevice(deviceNum))== cudaSuccess)? 'Y' : 'N';
 	
 	/* Initialize the sequence. */
 	srand(654);
 	data = (cufftComplex *) malloc(sizeof(cufftComplex) * matrixSize * matrixSize);
 	int i, j;
-    // double pdata=0;
-    for (i = 0; i < matrixSize; ++i) {
-        for (j = 0; j < matrixSize; ++j) {
-          data[i*matrixSize+j][0] = i; 
-          data[i*matrixSize+j][1] = 0;
-          // pdata += data[i*matrixSize+j][0] * data[i*matrixSize+j][0] + data[i*matrixSize+j][1] * data[i*matrixSize+j][1];
-        }
-    }
+	// double pdata=0;
+	for (i = 0; i < matrixSize; ++i) {
+		for (j = 0; j < matrixSize; ++j) {
+			data[i*matrixSize+j].x = i;
+			data[i*matrixSize+j].y = 0;
+			// pdata += data[i*matrixSize+j][0] * data[i*matrixSize+j][0] + data[i*matrixSize+j][1] * data[i*matrixSize+j][1];
+		}
+	}
 
 	/* Create a 2D FFT plan. */
-	if (cufftPlanMany(&plan, 2, n,
-					  NULL, 1, 0,
-					  NULL, 1, 0,
-					  CUFFT_C2C,BATCH) != CUFFT_SUCCESS){
+	if (cufftPlan2d(&plan, matrixSize, matrixSize, CUFFT_C2C) != CUFFT_SUCCESS) {
 		fprintf(stderr, "CUFFT Error: Unable to create plan\n");
-		return;	
+		return 0;	
 	}
 
 	if (cufftSetCompatibilityMode(plan, CUFFT_COMPATIBILITY_NATIVE)!= CUFFT_SUCCESS){
 		fprintf(stderr, "CUFFT Error: Unable to set compatibility mode to native\n");
-		return;		
+		return 0;		
 	}
 
 	cudaMalloc((void **)&dev_data, sizeof(cufftComplex) * matrixSize * matrixSize);	
@@ -72,7 +68,7 @@ int main(int argc, char *argv[]) {
 	dim3 threads(t, 1, 1);
 
 	startTime = getTime();
-	cufftExecC2R(plan, data, data);
+	cufftExecC2C(plan, data, data, CUFFT_FORWARD);
 	cudaThreadSynchronize();
 	totalTime += getTime() - startTime;
 	handleErrors(cudaGetLastError());
