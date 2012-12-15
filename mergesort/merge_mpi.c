@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
 		chunk = (int *) malloc(s * sizeof(int));
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
-		m_sort(chunk, 0, s-1);
+		m_sort(chunk, 0, s - 1);
 		/* showVector(chunk, s, id); */
 	}
 
