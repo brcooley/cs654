@@ -10,8 +10,6 @@ void swap(int *v, int i, int j);
 void m_sort(int *A, int min, int max);
 double getTime();
 
-double startTime, stopTime;
-
 
 void showVector(int *v, int n, int id) {
 	int i;
@@ -107,6 +105,10 @@ int main(int argc, char **argv) {
 	int s = 0;
 	int i;
 	int step;
+
+	double totalTime, startTime;
+	totalTime = 0;
+
 	MPI_Status status;
 
 	if (argc != 2) { printf("usage: ./merge_mpi ARRAY_SIZE\n"); exit(1); }
@@ -117,7 +119,7 @@ int main(int argc, char **argv) {
 	MPI_Comm_rank(MPI_COMM_WORLD, &id);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
 
-	if (id == 0)	{
+	if (id == 0) {
 		int r;
 		srandom(clock());
 		s = arraySize / p;
@@ -137,6 +139,7 @@ int main(int argc, char **argv) {
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s - 1);
 		/* showVector(chunk, s, id); */
+		startTime = getTime();
 	}
 	else {
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -144,8 +147,6 @@ int main(int argc, char **argv) {
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s-1);
 		/* showVector(chunk, s, id); */
-
-		startTime = getTime();
 	}
 
 	step = 1;
@@ -169,8 +170,8 @@ int main(int argc, char **argv) {
 	}
 
 	if (id == 0) {
-		stopTime = getTime();
-		printf("%.5f\n", (stopTime-startTime));
+		totalTime = getTime() - startTime;
+		printf("%.5f\n", totalTime);
 	}
 	MPI_Finalize();
 	return 0;
