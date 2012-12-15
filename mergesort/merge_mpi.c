@@ -144,9 +144,10 @@ int main(int argc, char **argv) {
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s-1);
 		/* showVector(chunk, s, id); */
+
+		startTime = getTime();
 	}
 
-	startTime = getTime();
 	step = 1;
 	while (step < p) {
 		if (id % (2 * step) == 0) {
@@ -167,9 +168,8 @@ int main(int argc, char **argv) {
 		step *= 2;
 	}
 
-	stopTime = getTime();
-
 	if (id == 0) {
+		stopTime = getTime();
 		printf("%.5f\n", (stopTime-startTime));
 	}
 	MPI_Finalize();
