@@ -62,7 +62,7 @@ int * merge(int *A, int asize, int *B, int bsize) {
 	return C;
 }
 
-void swap(int *v, int i, int j) {
+inline void swap(int *v, int i, int j) {
 	int t;
 	t = v[i];
 	v[i] = v[j];
@@ -120,18 +120,11 @@ int main(int argc, char **argv) {
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
 
 	if (id == 0) {
-		int r;
 		srandom(clock());
 		s = arraySize / p;
-		r = arraySize % p;
-		data = (int *) malloc((arraySize + s - r) * sizeof(int));
+		data = (int *) malloc((arraySize + s) * sizeof(int));
 		for(i = 0; i < arraySize; i++) {
 			data[i] = random();
-		}
-		if (r != 0) {
-			for (i = arraySize; i < arraySize + s - r; i++)
-				data[i] = 0;
-			s += 1;
 		}
 
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -139,7 +132,6 @@ int main(int argc, char **argv) {
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s - 1);
 		/* showVector(chunk, s, id); */
-		startTime = getTime();
 	}
 	else {
 		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -147,6 +139,11 @@ int main(int argc, char **argv) {
 		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
 		m_sort(chunk, 0, s-1);
 		/* showVector(chunk, s, id); */
+	}
+
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (id == 0) { 
+		startTime = getTime();
 	}
 
 	step = 1;
@@ -168,6 +165,8 @@ int main(int argc, char **argv) {
 		}
 		step *= 2;
 	}
+
+	MPI_Barrier(MPI_COMM_WORLD);
 
 	if (id == 0) {
 		totalTime = getTime() - startTime;
