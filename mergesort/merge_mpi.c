@@ -92,7 +92,7 @@ void m_sort(int *A, int min, int max) {
 
 
 double getTime() {
-	timeval thetime;
+	struct timeval thetime;
 	gettimeofday( &thetime, 0 );
 	return thetime.tv_sec + thetime.tv_usec / 1000000.0;
 }
