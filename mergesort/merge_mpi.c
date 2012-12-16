@@ -3,11 +3,12 @@
 #include <stdlib.h>
 #include <fenv.h>
 #include <sys/time.h>
+#include <math.h>
 
 void showVector(int *v, int n, int id);
-int * merge(int *A, int asize, int *B, int bsize);
+int * merge(int *A, int asize, int *B, int bsize, int *C, int csize);
 void swap(int *v, int i, int j);
-void m_sort(int *A, int min, int max);
+void m_sort(int *A, int min, int max, int *C);
 double getTime();
 
 
@@ -20,10 +21,9 @@ void showVector(int *v, int n, int id) {
 	printf("\n");
 }
 
-int * merge(int *A, int asize, int *B, int bsize) {
+int * merge(int *A, int asize, int *B, int bsize, int *C, int csize) {
 	int ai, bi, ci, i;
-	int *C;
-	int csize = asize+bsize;
+	csize = asize+bsize;
 
 	ai = 0;
 	bi = 0;
@@ -31,7 +31,6 @@ int * merge(int *A, int asize, int *B, int bsize) {
 
 	/* printf("asize=%d bsize=%d\n", asize, bsize); */
 
-	C = (int *) malloc(csize*sizeof(int));
 	while ((ai < asize) && (bi < bsize)) {
 		if (A[ai] <= B[bi]) {
 			C[ci] = A[ai];
@@ -69,25 +68,24 @@ inline void swap(int *v, int i, int j) {
 	v[j] = t;
 }
 
-void m_sort(int *A, int min, int max) {
-	int *C;		/* dummy, just to fit the function */
+void m_sort(int *A, int min, int max, int *C) {
 	int mid = (min+max)/2;
 	int lowerCount = mid - min + 1;
 	int upperCount = max - mid;
+	int totalCount = lowerCount + upperCount;
 
 	/* If the range consists of a single element, it's already sorted */
 	if (max == min) {
 		return;
 	} else {
 		/* Otherwise, sort the first half */
-		m_sort(A, min, mid);
+		m_sort(A, min, mid, C);
 		/* Now sort the second half */
-		m_sort(A, mid+1, max);
+		m_sort(A, mid+1, max, C);
 		/* Now merge the two halves */
-		C = merge(A + min, lowerCount, A + mid + 1, upperCount);
+		merge(A + min, lowerCount, A + mid + 1, upperCount, C + min, totalCount);
 	}
 }
-
 
 double getTime() {
 	struct timeval thetime;
@@ -100,6 +98,7 @@ int main(int argc, char **argv) {
 	int * data;
 	int * chunk;
 	int * other;
+	int * scratch;
 	int m;
 	int id, p;
 	int s = 0;
@@ -114,11 +113,13 @@ int main(int argc, char **argv) {
 	if (argc != 2) { printf("usage: ./merge_mpi ARRAY_SIZE\n"); exit(1); }
 
 	int arraySize = atoi(argv[1]);
+	int scratchSize = arraySize;
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &id);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
 
+	// generate and scatter data
 	if (id == 0) {
 		srandom(clock());
 		s = arraySize / p;
@@ -126,26 +127,22 @@ int main(int argc, char **argv) {
 		for(i = 0; i < arraySize; i++) {
 			data[i] = random();
 		}
-
-		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = (int *) malloc(s * sizeof(int));
-		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
-		m_sort(chunk, 0, s - 1);
-		/* showVector(chunk, s, id); */
 	}
-	else {
-		MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
-		chunk = (int *) malloc(s * sizeof(int));
-		MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
-		m_sort(chunk, 0, s - 1);
-		/* showVector(chunk, s, id); */
-	}
+	MPI_Bcast(&s, 1, MPI_INT, 0, MPI_COMM_WORLD);
+	chunk = (int *) malloc(s * sizeof(int));
+	MPI_Scatter(data, s, MPI_INT, chunk, s, MPI_INT, 0, MPI_COMM_WORLD);
+	scratch = (int*) malloc(s * sizeof(int));
 
+	// synch before beginning computation
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (id == 0) { 
 		startTime = getTime();
 	}
 
+	// partial sorts
+	m_sort(chunk, 0, s - 1, scratch);
+
+	// final integrations
 	step = 1;
 	while (step < p) {
 		if (id % (2 * step) == 0) {
@@ -153,7 +150,9 @@ int main(int argc, char **argv) {
 				MPI_Recv(&m, 1, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
 				other = (int *) malloc(m * sizeof(int));
 				MPI_Recv(other, m, MPI_INT, id + step, 0, MPI_COMM_WORLD, &status);
-				chunk = merge(chunk, s, other, m);
+				
+				scratch = (int *) malloc((s+m) * sizeof(int)); // free this later if time permits
+				chunk = merge(chunk, s, other, m, scratch, s+m); // need: s+m <= 2*s
 				s += m;
 			} 
 		}
@@ -170,6 +169,7 @@ int main(int argc, char **argv) {
 
 	if (id == 0) {
 		totalTime = getTime() - startTime;
+		//showVector(chunk, arraySize, 0);
 		printf("%.5f\n", totalTime);
 	}
 	MPI_Finalize();
