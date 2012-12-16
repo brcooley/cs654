@@ -1,0 +1,289 @@
+1 threads on 16777216 ints[5]: 
+0.00000
+1 threads on 16777216 ints[6]: 
+0.00000
+1 threads on 16777216 ints[7]: 
+0.00000
+1 threads on 16777216 ints[8]: 
+0.00000
+20121216:10:40:04
+1 threads on 1048576 ints[1]: 
+0.38601
+1 threads on 1048576 ints[2]: 
+0.38830
+1 threads on 1048576 ints[3]: 
+0.38488
+1 threads on 1048576 ints[4]: 
+0.38489
+1 threads on 1048576 ints[5]: 
+0.38494
+1 threads on 1048576 ints[6]: 
+0.38610
+1 threads on 1048576 ints[7]: 
+0.38560
+1 threads on 1048576 ints[8]: 
+0.38486
+1 threads on 1048576 ints[9]: 
+0.38866
+1 threads on 1048576 ints[10]: 
+0.38492
+2 threads on 1048576 ints[1]: 
+0.20998
+2 threads on 1048576 ints[2]: 
+0.20617
+2 threads on 1048576 ints[3]: 
+0.20674
+2 threads on 1048576 ints[4]: 
+0.68971
+2 threads on 1048576 ints[5]: 
+0.20709
+2 threads on 1048576 ints[6]: 
+0.20633
+2 threads on 1048576 ints[7]: 
+0.20656
+2 threads on 1048576 ints[8]: 
+0.20419
+2 threads on 1048576 ints[9]: 
+0.21081
+2 threads on 1048576 ints[10]: 
+0.20560
+4 threads on 1048576 ints[1]: 
+0.11822
+4 threads on 1048576 ints[2]: 
+0.12130
+4 threads on 1048576 ints[3]: 
+0.12084
+4 threads on 1048576 ints[4]: 
+0.12558
+4 threads on 1048576 ints[5]: 
+0.11914
+4 threads on 1048576 ints[6]: 
+0.13678
+4 threads on 1048576 ints[7]: 
+0.12673
+4 threads on 1048576 ints[8]: 
+0.14318
+4 threads on 1048576 ints[9]: 
+0.12652
+4 threads on 1048576 ints[10]: 
+0.11886
+8 threads on 1048576 ints[1]: 
+0.10330
+8 threads on 1048576 ints[2]: 
+0.10406
+8 threads on 1048576 ints[3]: 
+0.10238
+8 threads on 1048576 ints[4]: 
+0.10383
+8 threads on 1048576 ints[5]: 
+0.10241
+8 threads on 1048576 ints[6]: 
+0.10297
+8 threads on 1048576 ints[7]: 
+0.10330
+8 threads on 1048576 ints[8]: 
+0.10322
+8 threads on 1048576 ints[9]: 
+0.10075
+8 threads on 1048576 ints[10]: 
+0.10221
+16 threads on 1048576 ints[1]: 
+0.08125
+16 threads on 1048576 ints[2]: 
+0.08239
+16 threads on 1048576 ints[3]: 
+0.08377
+16 threads on 1048576 ints[4]: 
+0.08306
+16 threads on 1048576 ints[5]: 
+0.08470
+16 threads on 1048576 ints[6]: 
+0.08407
+16 threads on 1048576 ints[7]: 
+0.08473
+16 threads on 1048576 ints[8]: 
+0.08409
+16 threads on 1048576 ints[9]: 
+0.08327
+16 threads on 1048576 ints[10]: 
+0.08449
+1 threads on 16777216 ints[1]: 
+7.30711
+1 threads on 16777216 ints[2]: 
+7.31016
+1 threads on 16777216 ints[3]: 
+7.30535
+1 threads on 16777216 ints[4]: 
+7.31632
+1 threads on 16777216 ints[5]: 
+7.30855
+1 threads on 16777216 ints[6]: 
+7.33159
+1 threads on 16777216 ints[7]: 
+7.33843
+1 threads on 16777216 ints[8]: 
+7.33953
+1 threads on 16777216 ints[9]: 
+7.33246
+1 threads on 16777216 ints[10]: 
+7.40920
+2 threads on 16777216 ints[1]: 
+3.86059
+2 threads on 16777216 ints[2]: 
+3.88182
+2 threads on 16777216 ints[3]: 
+3.91305
+2 threads on 16777216 ints[4]: 
+3.87521
+2 threads on 16777216 ints[5]: 
+3.87101
+2 threads on 16777216 ints[6]: 
+3.88135
+2 threads on 16777216 ints[7]: 
+3.87527
+2 threads on 16777216 ints[8]: 
+3.87301
+2 threads on 16777216 ints[9]: 
+3.87436
+2 threads on 16777216 ints[10]: 
+3.86882
+4 threads on 16777216 ints[1]: 
+2.26639
+4 threads on 16777216 ints[2]: 
+2.28568
+4 threads on 16777216 ints[3]: 
+2.20157
+4 threads on 16777216 ints[4]: 
+2.18650
+4 threads on 16777216 ints[5]: 
+2.20149
+4 threads on 16777216 ints[6]: 
+2.20546
+4 threads on 16777216 ints[7]: 
+2.28701
+4 threads on 16777216 ints[8]: 
+2.19131
+4 threads on 16777216 ints[9]: 
+2.19715
+4 threads on 16777216 ints[10]: 
+2.19995
+8 threads on 16777216 ints[1]: 
+1.78230
+8 threads on 16777216 ints[2]: 
+1.77337
+8 threads on 16777216 ints[3]: 
+1.77429
+8 threads on 16777216 ints[4]: 
+1.78426
+8 threads on 16777216 ints[5]: 
+1.77777
+8 threads on 16777216 ints[6]: 
+1.76041
+8 threads on 16777216 ints[7]: 
+1.76530
+8 threads on 16777216 ints[8]: 
+1.74797
+8 threads on 16777216 ints[9]: 
+1.75671
+8 threads on 16777216 ints[10]: 
+1.75728
+16 threads on 16777216 ints[1]: 
+1.38889
+16 threads on 16777216 ints[2]: 
+1.38822
+16 threads on 16777216 ints[3]: 
+1.41597
+16 threads on 16777216 ints[4]: 
+1.41522
+16 threads on 16777216 ints[5]: 
+1.40859
+16 threads on 16777216 ints[6]: 
+1.40524
+16 threads on 16777216 ints[7]: 
+1.39543
+16 threads on 16777216 ints[8]: 
+1.41016
+16 threads on 16777216 ints[9]: 
+1.40146
+16 threads on 16777216 ints[10]: 
+1.49972
+1 threads on 536870912 ints[1]: 
+281.00218
+1 threads on 536870912 ints[2]: 
+281.11878
+1 threads on 536870912 ints[3]: 
+281.13512
+1 threads on 536870912 ints[4]: 
+281.12809
+1 threads on 536870912 ints[5]: 
+280.62298
+1 threads on 536870912 ints[6]: 
+280.77323
+1 threads on 536870912 ints[7]: 
+280.99922
+1 threads on 536870912 ints[8]: 
+280.67156
+1 threads on 536870912 ints[9]: 
+280.83171
+1 threads on 536870912 ints[10]: 
+280.68511
+2 threads on 536870912 ints[1]: 
+147.33843
+2 threads on 536870912 ints[2]: 
+147.29806
+2 threads on 536870912 ints[3]: 
+146.76750
+2 threads on 536870912 ints[4]: 
+146.74954
+2 threads on 536870912 ints[5]: 
+147.04181
+2 threads on 536870912 ints[6]: 
+147.36280
+2 threads on 536870912 ints[7]: 
+147.60505
+2 threads on 536870912 ints[8]: 
+147.08556
+2 threads on 536870912 ints[9]: 
+147.78018
+2 threads on 536870912 ints[10]: 
+147.31446
+4 threads on 536870912 ints[1]: 
+81.83869
+4 threads on 536870912 ints[2]: 
+81.88149
+4 threads on 536870912 ints[3]: 
+81.59957
+4 threads on 536870912 ints[4]: 
+81.88536
+4 threads on 536870912 ints[5]: 
+81.74024
+4 threads on 536870912 ints[6]: 
+81.81564
+4 threads on 536870912 ints[7]: 
+81.76825
+4 threads on 536870912 ints[8]: 
+81.80690
+4 threads on 536870912 ints[9]: 
+81.59965
+4 threads on 536870912 ints[10]: 
+81.73273
+8 threads on 536870912 ints[1]: 
+8 threads on 536870912 ints[2]: 
+8 threads on 536870912 ints[3]: 
+8 threads on 536870912 ints[4]: 
+8 threads on 536870912 ints[5]: 
+8 threads on 536870912 ints[6]: 
+8 threads on 536870912 ints[7]: 
+8 threads on 536870912 ints[8]: 
+8 threads on 536870912 ints[9]: 
+8 threads on 536870912 ints[10]: 
+16 threads on 536870912 ints[1]: 
+16 threads on 536870912 ints[2]: 
+16 threads on 536870912 ints[3]: 
+16 threads on 536870912 ints[4]: 
+16 threads on 536870912 ints[5]: 
+16 threads on 536870912 ints[6]: 
+16 threads on 536870912 ints[7]: 
+16 threads on 536870912 ints[8]: 
+16 threads on 536870912 ints[9]: 
+16 threads on 536870912 ints[10]: 
