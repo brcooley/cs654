@@ -15,7 +15,9 @@ def new(cur, old):
 def main():
 
 	for raw_data in ['mergesort/merge_omp_results.out','mergesort/merge_mpi_results.out','mergesort/merge_cuda_results.out','fft/fft_omp_results.out','fft/fft_mpi_results.out','fft/fft_cuda_results.out']:
-		
+	#['fft/fft_omp_results.out','fft/fft_mpi_results.out','fft/fft_cuda_results.out']:
+	
+		print("Working on {}".format(raw_data.split('/')[1].split('.')[0]))
 		data = {}
 		with open(raw_data, 'r') as f:
 
