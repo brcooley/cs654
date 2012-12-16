@@ -14,7 +14,7 @@ def new(cur, old):
 
 def main():
 
-	for raw_data in ['merge_omp_results.out','merge_mpi_results.out','merge_cuda_results.out','fft_omp_results.out','fft_mpi_results.out','fft_cuda_results.out']:
+	for raw_data in ['mergesort/merge_omp_results.out','mergesort/merge_mpi_results.out','mergesort/merge_cuda_results.out','fft/fft_omp_results.out','fft/fft_mpi_results.out','fft/fft_cuda_results.out']:
 		
 		data = {}
 		with open(raw_data, 'r') as f:
@@ -41,7 +41,7 @@ def main():
 		for key in data.keys():
 			# print('{}: {}'.format(key, data[key]))
 			data[key] = stats(data[key])
-
+			print('{}: {}'.format(key, data[key]))
 
 		data_wrapped = { 'problem': raw_data.rsplit('_'), 'data': data }
 
