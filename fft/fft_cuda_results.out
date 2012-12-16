@@ -1,0 +1,179 @@
+20121215:23:04:04
+Matrix size 4096 - trying 256 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Matrix size 4096 - trying 16 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00197
+Matrix size 8192 - trying 256 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Matrix size 8192 - trying 16 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Matrix size 16384 - trying 256 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00754
+Matrix size 16384 - trying 16 threads?: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00823
+20121215:23:12:51
+Matrix size 4096 [1]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00195
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00197
+Matrix size 4096 [2]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00195
+Matrix size 4096 [3]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00194
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Matrix size 4096 [4]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00194
+Matrix size 4096 [5]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00196
+Matrix size 8192 [1]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Matrix size 8192 [2]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00700
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Matrix size 8192 [3]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00703
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00702
+Matrix size 8192 [4]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00698
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00700
+Matrix size 8192 [5]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00704
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+0.00702
+Matrix size 16384 [1]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00913
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00822
+Matrix size 16384 [2]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00912
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00865
+Matrix size 16384 [3]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00484
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00404
+Matrix size 16384 [4]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00559
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00428
+Matrix size 16384 [5]: 
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00398
+Malloc'ing and copying to GPU
+Copy completed, computing thread/block sizes
+Completed setup, now running kernel!
+Kernel: unspecified launch failure
+0.00420

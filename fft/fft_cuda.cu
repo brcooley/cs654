@@ -10,8 +10,7 @@ void handleErrors(cudaError_t);
 
 
 int main(int argc, char *argv[]) {
-	if (argc != 3) { printf("usage: ./fft_cuda DEVICE MATRIX_SIZE NUM_THREADS\n"); exit(1); }
-
+	if (argc != 3) { printf("usage: ./fft_cuda DEVICE MATRIX_SIZE\n"); exit(1); }
 
 	cufftHandle plan;
 	cufftComplex *data, *dev_data;
@@ -21,7 +20,6 @@ int main(int argc, char *argv[]) {
 
 	int deviceNum = atoi(argv[1]);
 	int matrixSize = atoi(argv[2]);
-	int numThreads = atoi(argv[3]);
 
 	char x = ((cudaSetDevice(deviceNum))== cudaSuccess)? 'Y' : 'N';
 	
@@ -38,6 +36,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+
 	/* Create a 2D FFT plan. */
 	if (cufftPlan2d(&plan, matrixSize, matrixSize, CUFFT_C2C) != CUFFT_SUCCESS) {
 		fprintf(stderr, "CUFFT Error: Unable to create plan\n");
@@ -50,22 +49,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	cudaMalloc((void **)&dev_data, sizeof(cufftComplex) * matrixSize * matrixSize);	
-	cudaMemcpy(dev_data, &data, sizeof(cufftComplex) * matrixSize * matrixSize, cudaMemcpyHostToDevice);
-
-	// numThreads can range from 1..7 => {1,4,16,64,256,512,1024}
-	int bH, bW, t;
-	if (numThreads <= 2) {
-		bH = (int) pow(4, numThreads-1);
-		bW = 1;
-	} else if (numThreads <= 4) {
-		bH = bW = 4*(numThreads-2);
-	} else {
-		bH = bW = 16;
-		t = (int) pow(2, numThreads - 5);
-	}
-
-	dim3 blocks(bH, bW, 1);
-	dim3 threads(t, 1, 1);
+	cudaMemcpy(dev_data, data, sizeof(cufftComplex) * matrixSize * matrixSize, cudaMemcpyHostToDevice);
 
 	startTime = getTime();
 	cufftExecC2C(plan, data, data, CUFFT_FORWARD);
