@@ -3,7 +3,7 @@ import json
 
 def stats(raw):
 	# print("Working on " + str(raw))
-	return (min(raw), sum(raw)/len(raw), max(raw), sd(raw))
+	return (min(raw), sum(raw)/len(raw), max(raw)) #, sd(raw))
 
 def sd(raw):
 	mean = sum(raw)/len(raw)
@@ -41,12 +41,19 @@ def main():
 		for key in data.keys():
 			# print('{}: {}'.format(key, data[key]))
 			data[key] = stats(data[key])
-			print('{}: {}'.format(key, data[key]))
 
-		data_wrapped = { 'problem': raw_data.rsplit('_'), 'data': data }
+		sorted_data = sorted([(k, v) for k, v in data.items()])
 
-		with open('final_results.dat', 'w+') as f_out: 
-			print(json.dumps(data_wrapped), file=f_out)
+		for datum in sorted_data:
+			print(datum[0], end=": ")
+			for item in datum[1]:
+				print('{:.4f}'.format(item), end=", ")
+			print()
+
+		# data_wrapped = { 'problem': raw_data.rsplit('_'), 'data': data }
+
+		# with open('final_results.dat', 'w+') as f_out: 
+		# 	print(json.dumps(data_wrapped), file=f_out)
 
 
 if __name__ == '__main__':
