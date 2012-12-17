@@ -260,26 +260,6 @@
 4 threads on 536870912 ints[10]: 
 81.73273
 8 threads on 536870912 ints[1]: 
-8 threads on 536870912 ints[2]: 
-8 threads on 536870912 ints[3]: 
-8 threads on 536870912 ints[4]: 
-8 threads on 536870912 ints[5]: 
-8 threads on 536870912 ints[6]: 
-8 threads on 536870912 ints[7]: 
-8 threads on 536870912 ints[8]: 
-8 threads on 536870912 ints[9]: 
-8 threads on 536870912 ints[10]: 
-16 threads on 536870912 ints[1]: 
-16 threads on 536870912 ints[2]: 
-16 threads on 536870912 ints[3]: 
-16 threads on 536870912 ints[4]: 
-16 threads on 536870912 ints[5]: 
-16 threads on 536870912 ints[6]: 
-16 threads on 536870912 ints[7]: 
-16 threads on 536870912 ints[8]: 
-16 threads on 536870912 ints[9]: 
-16 threads on 536870912 ints[10]: 
-8 threads on 536870912 ints[1]: 
 63.38618
 8 threads on 536870912 ints[2]: 
 62.83019

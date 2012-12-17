@@ -1,0 +1,330 @@
+\documentclass[conference,12pt]{IEEEtran}
+\usepackage[utf8x]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{url}
+
+% Title Page
+\title{Benchmarking OpenMP, MPI and CUDA}
+\author{Brett Cooley, Tim Henne, Kevin Ji}
+
+
+\begin{document}
+\maketitle
+\section{Introduction}
+	In our paper we looked at a variety of parallel interfaces, languages, and models, before ultimately settling on OpenMP, MPI and CUDA.  We also examined Apache Hadoop, Erlang and Glasglow Haskell Compiler.  
+	The purpose of this paper is to take parallel problems with well known algorithmic solutions and set up a benchmarking system that reflects performance, as well as offering commentary on ease of use and whether or not the potential
+	headaches of using a paradigm is worth the enhanced speed.  We chose mergesort and 2-D Fast Fourier Transform, to serve as our bench marks.  The paper is structured as followed, first an examination into the potential parallel paradigms that were
+	researched but ultimately not used. Followed by the parallel paradigms that we did use, then a breakdown of the algorithms used, then a breakdown of each algorithms implementation and analysis, and finally a conclusion will sum up our findings.
+
+	\subsection{Parallel Paradigms Researched}
+		The Glasglow Haskell Compiler or GHC, developed at the University of Glasglow, serves not only as a compiler and front-end to the functional language Haskell but also provides features not specified in the original language.  Because functional languages
+		are based on setting up the problem and then use lazy evaluation to solve them, this same process is built upon in GHC to provide parallel functionality.  Instead of explicitly spawning threads, or providing any explicit instruction for parallelism the 
+		programmer simply notes what needs to be parallelized and GHC takes care of it implicitly.  Our initial plan for the project had us examining shared memory, message passing and implicit parallelization to determine what form of parallelization provided
+		the best speed to performance ratio.  It was assumed that implicit parallelization would have the worst performance but the best ease of use, as the programmer has to do virtually nothing, putting a non-trivial amount of responsibility on the compiler.  
+		We opted against using this paradigm, when the project goals shifted.
+
+		Apache Hadoop or Hadoop, is a software framework derived from Google's MapReduce and is used to support applications on large clusters of hardware.  Hadoop relies on the map/reduce paradigm and the Hadoop Distributed File System (HDFS) to divide work throughout
+		the Hadoop cluster and nodes.  The Hadoop cluster is made up of a master node and multiple data nodes.  The Hadoop cluster is a two layer system with the map/reduce layer controlling the task tracker and the job tracker, which tracks the worker nodes task tracker,
+		the HDFS layer contains the data node and the name node, which tracks the worker nodes data node.  For larger clusters the HDFS is managed through a NameNode server that hosts the filesystems index, with a secondary NameNode to create snapshots of data, this 
+		secondary node prevents data corruption.  Thus, because of their stability and map/reduce speed Hadoop clusters are a popular form of data storage used by both Yahoo! and Facebook, who store around 100 Petabytes of data each.  We decided against using Hadoop 
+		because the scope of its functionality was much larger than what we intended. 
+
+		The Erlang programming language like Haskell is a functional language however, unlike Haskell Erlang uses strict evaluation or eager evaluation instead of lazy evaluation.  This is because Erlang was developed to handle soft-real-time applications that do not stop,
+		as such Erlang provides features for the creation and management of threads at a language level.  The process communicate using message passing instead of shared memory.  Developed from Prolog, Erlang was designed to improve the performance of telephony applications. 
+		The biggest strength of Erlang is its concurrency, using primitives to create and communicate between process.  Loosely following the communicating sequential process model, and Erlang process are not system process or operating system threads instead they are 
+		lightweight processes that do not have any shared state between them.  Due to its Prolog background, Erlang is difficult to implement mathematically heavy algorithms.  Thus, Erlang was dropped due to unfamiliarity with the language and the use of the math heavy FFT 
+		algorithm.
+
+	\subsection{Parallel Paradigms Used}
+		The OpenMP (OMP) API allows for a multi-threading implementation to be used in C, C++, and Fortran.  Due to our familiarity with C-type languages all implementations of OMP used were done either in C or C++ through the use of the header file omp.h and the compile tag 
+		-fopenmp.  OMP is controlled through a series of pragmas that the programmer uses to identify a section of code that needs to parallelized.  Because data is shared throughout threads on OMP, the programmer must also specify how data is to be protected and shared through
+		the multiple threads.  A program running OMP functions as a normal serial program would with a master thread running through the code in sequential fashion, when the master thread reaches a pragma however, it forks off into multiple threads and executes a single block 
+		of code in parallel before reforming into the master thread.  This method of the master thread breaking up and reforming can happen multiple times throughout a program. We decided to use OMP, because of our familiarity with C and C++ as well as our experience using OMP 
+		on homework assignments and implementation of other algorithms.  
+
+		Like OMP, Message Passing Interface (MPI) is a portable API offering a set of library routines to be used in C, C++ and Fortran. Because of our familiarity with C-type languages, we stuck to using C and C++ code to implement MPI, which was accessed through the mpi.h header file
+		and complied with mpicc, and run with mpirun.  MPI uses distributed memory, meaning that each thread that operates on the code has a fraction of the total data, in proportion to the size of the data over the number of threads or $frac{N}{p}$.  To compensate for the lack
+		of shared memory and thus total data, MPI uses the ubiquitous message passing to communicate pertinent information between the different processes or processor.  While it is possible using MPI to have multiple processes on a single processor, maximum performance is attained 
+		by having a single process be used for every processor used.  We chose to use MPI, due to our familiarity with C/C++ and the MPI API itself from homework assignments that resulted in implementing other algorithms.  Additionally the using both MPI and OMP provides an optimal
+		chance to compare and contrast the virtues and pitfalls of shared memory and distributed memory.
+
+		Compute Unified Device Architecture (CUDA) developed by NVIDIA enables parallel computing on the Graphic Processing Unit (GPU) and is accessible through Fortran/C/C++.  Once again due to our familiarity with C and C++ they were used in algorithmic implementation.  Because
+		CUDA uses the GPU it is able to take advantage of the highly parallel multi-core system that makes up the GPU, and perform large scale manipulation of data and mathematical processing. CUDA also uses shared memory between its many threads, and can be used as a user-managed cache,
+		which in turn allows for quick communication.  However, because of the nature of the GPU, best performance is done through organizing the threads into groups of 32 or warp.  Additionally because of the shared memory and high number of threads CUDA uses a subset of the C language 
+		that is both recursion free and function-pointer-free.  We chose to use CUDA because of past experience with it as well as CUDA offering a different perspective on shared memory performance and implementation due to its GPU-based nature.
+
+\section{Problems}
+	Mergesort was selected for being an embarrassingly parallel algorithm that could be used as a solid base for performance.  The top-down or recursive method of mergesort is implemented by using recursion to break down a list of elements into single elements, then merging them 
+	in order up the tree.  From a parallel perspective the a recursive method of this manner serves to compound the already existing overhead that comes with parallelization.  How the parallel algorithm handles the dead threads that result when merge sort merges back up can be 
+	a critical factor in determining good or bad performance.  Additionally, mergesort is an algorithm that everyone in the group was familiar with and had coded multiple times.  This is critical when considering the second goal of our project ease of use.  If a familiar and relatively
+	straight forward algorithm becomes a nightmare, then the ease of use is not high. Alternatively if, parallelism comes naturally then the ease of use is high.
+
+	The other algorithm we decide to use was a 2-Dimensional Fast Fourier Transform(FFT), which is used to compute Discrete Fourier Transforms (DFT), which in turn convert a finite list of equally spaced samples of a function into the list of coefficients of a finite combination of complex 
+	sinusoids, ordered by their frequencies that have the same values. While their are many algorithms that are used to compute the FFT, the most popular is the Cooley-Tukey algorithm that operates in O(N log N) time.  Cooley-Tukey operates recursively to break up a composite of size N
+	into smaller DFTs.  Because of the conversion to DFT, FFT and Cooley-Tukey contain mathematically intensive steps.  Due to the complication of the algorithm, we opted to utilize version 3.3.3 of FFTW, which was already installed on SciClone.  FFTW varies the algorithm from Cooley-Tukey to 
+	either Rader's Algorithm or Bluestein's Algorithm if the  transform that are prime, as well as hard coded unrolled FFTs for very small sizes at compile time.  FFTW is also completely compatible and has integrated both OMP and MPI.  By using FFTW we were able to focus on creating an effective
+	bench mark suite.  Additionally, using FFTW gives a more realistic angle to our ease of use component.  It is unlikely that if FFT calculation were a goal for an individual to roll their own code that would out perform FFTW.  Thus, how easy it is to establish OMP and MPI in FFTW directly 
+	reflect their ease of use within the function.  Because FFTW does not offer CUDA support, for CUDA we will use CUFFT, a built in CUDA library to handle FFT.
+
+	\subsection{OMP Mergesort Implementation}   
+		The implementation of mergesort in OpenMP is the most straight forward to turn into parallel code with minimal modification of the serial code being needed.  The serial code relies on recursion to break up the initial array into smaller sections, OMP simply puts that part of the code into parallel sections.  The default setting of OMP is to not allow its sub-threads to break off any other threads, the method omp\_set\_nested(1) reverses this default and allows for nested threading.
+
+	\subsection{MPI Mergesort Implementation}
+		Because of the distributed memory nature of MPI, the implementation is not as straightforward as OMP.  First the thread of rank 0 sends out the size of all data chunks to all other threads by way of an MPI\_BCAST.  Then allocating an array of the appropriate size, the information is scattered to all other threads.  
+		Then mergesort is called.  The other threads get the size from the MPI\_BCAST and like the 0th rank thread allocate a chunk then receive via MPI\_Scatter and themselves call mergesort.
+
+		The actual implementation of mergesort method call is identical to the serialized version but each chunk is being done in parallel, the same goes for the merge method call.
+
+		Using MPI\_Recv and MPI\_Send, as well as updating the size and step, we gather together two chunks that need to be merged or send out a chunk of size s too be merged.
+ 
+
+	\subsection{CUDA Mergesort Implementation}
+		The CUDA mergesort was the most difficult to program, as CUDA does not allow for recursive function calls.  We must therefore simulate the recursive nature with iterative loops over different chunks of the array.
+
+	\subsection{OMP FFT Implementation}
+		To ensure that we were using the quickest possible variant of Fast Fourier Transformations, we implemented the OpenMP version using the FFTW 3.x.x library.  Because FFTW supports both OMP and pThreads, and both are initialized by the same line of code in fftw\_init\_threads(void).  Thus to differentiate an OMP version is compiled with a link to the OMP library -fopenmp and a link to the fftw library that uses OMP -lfftw3\_omp.   FFTW works by creating a plan for an array that then is filled with info, the plan is executed to complete the transformation.  The call to fftw\_plan\_with\_nthreads(omp\_get\_max\_threads()) ensures that the next plan will use threads, and will use at most as many threads as the max threads in OMP.  In code:
+
+	\subsection{MPI FFT Implementation}
+		For the same reasons as stated in the OMP implementation notes, the FFTW 3.x.x library was used to ensure the fastest possible Fast Fourier Transformation algorithm.  Following the same pattern as normal MPI code, MPI in FFTW requires the use of MPI\_Init and the fftw specific method fftw\_mpi\_init() which serves the same purpose.
+
+	\subsection{CUDA FFT Implementation}
+		The CUDA version of our FFT code uses a CUDA library, cuFFT.  Unlike many CUDA functions, cuFFT is not written as a kernel, which means we are unable to control the number of threads used within.  The implementation initializes a random matrix to be transformed, and then sets up cuFFT to do the calculations.
+
+\section{Results}
+	All results are taken from ten runs per configuration, with OpenMP timings done on \texttt{bg1}, MPI timings done on \texttt{bg7} for 1,2, or 4 processors and on \texttt{bg2, bg7, bg8, bg9} for 8 or 16 processors.  CUDA timings were done on a Sciclone C10A node, which runs a Tesla M2075 GPU with up to 448 cores available for processing.
+
+	\subsection{Mergesort}
+		\begin{table}[ht]
+		\caption{OMP Mergesort Results} 
+		\centering  
+		\begin{tabular}{c c | c c c} 
+		\hline\hline                        
+		\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+		%heading
+		\hline                 
+		1 & 1048576 & 2.3414 & 2.3455 & 2.3497  \\ 
+		1 & 16777216 & 39.2398 & 39.3083 & 39.3646  \\
+		1 & 536870912 & 1330.9435  & 1332.6753 &1333.2758    \\
+		\hline
+		2 & 1048576 & 1.2120 & 1.2172 & 1.2258  \\ 
+		2 & 16777216 & 20.2905 & 20.3514 & 20.4288  \\
+		2 & 536870912 & 695.3688  & 696.4509 &697.7854   \\
+		\hline
+		4 & 1048576 & 0.6350 & 0.6756 & 0.8789  \\ 
+		4 & 16777216 & 10.5336 & 10.7925 & 12.8276  \\
+		4 & 536870912 & 357.3963  & 358.2501 &359.7186   \\
+		\hline
+		8 & 1048576 & 0.3788 & 0.4526 & 0.5337  \\ 
+		8 & 16777216 & 5.9741 & 6.6450 & 8.2090  \\
+		8 & 536870912 & 201.7043  & 203.7049 &206.2894   \\
+		\hline
+		16 & 1048576 & 0.3695 & 0.3925 & 0.4415  \\
+		16 & 16777216 & 5.0253 & 5.0892 & 5.1845  \\
+		16 & 536870912 & 167.2271  & 168.4722 &170.6868 \\
+		\hline 
+		\end{tabular}
+		\label{table:ompmerge} % is used to refer this table in the text
+		\end{table}
+		Results show about an 8 times speedup from 1 to 16 threads, this is consistent with our expectations as the recursive nature of mergesort prevents a linear speedup.  
+
+		\begin{table}[ht]
+		\caption{MPI Mergesort Results} 
+		\centering  
+		\begin{tabular}{c c | c c c} 
+		\hline\hline                        
+		\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+		%heading
+		\hline                 
+		1 & 1048576 & 0.3849 & 0.3859 & 0.3887  \\ 
+		1 & 16777216 & 7.3053 & 7.3299 & 7.4092  \\
+		1 & 536870912 & 280.6230  & 280.8968 &281.1351    \\
+		\hline
+		2 & 1048576 & 0.2042 & 0.2553 & 0.6897  \\ 
+		2 & 16777216 & 3.8606 & 3.8774 & 3.9131  \\
+		2 & 536870912 & 146.7495  & 147.2343 &147.7802   \\
+		\hline
+		4 & 1048576 & 0.1182 & 0.1257 & 0.1432  \\ 
+		4 & 16777216 & 2.1865 & 2.2223 & 2.2870  \\
+		4 & 536870912 & 81.5996  & 81.7669 &81.8854   \\
+		\hline
+		8 & 1048576 & 0.1008 & 0.1028 & 0.1041  \\ 
+		8 & 16777216 & 1.7480 & 1.7680 & 1.7843  \\
+		8 & 536870912 & 62.8302  & 63.0987 &63.3862   \\
+		\hline
+		16 & 1048576 & 0.0813 & 0.0836 & 0.0847  \\
+		16 & 16777216 & 1.3882 & 1.4129 & 1.4997  \\
+		16 & 536870912 & 48.1157  & 48.2778 &48.4581 \\
+		\hline 
+		\end{tabular}
+		\label{table:mpimerge} % is used to refer this table in the text
+		\end{table}
+		Results from MPI are approximately as expected with about a 6 times speed up from 1 thread to 16 threads.  However, there are some diminishing returns between 8 threads and 16 threads, suggesting communication slowdown when communicating between the different bgs.
+
+		\begin{table}[ht]
+		\caption{CUDA Mergesort Results} 
+		\centering  
+		\begin{tabular}{c c | c c c} 
+		\hline\hline                        
+		\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+		%heading
+		\hline                 
+		1 & 1048576 &3.2672 &3.3127 & 3.3797  \\ 
+		1 & 16777216 & 40.8667 & 41.0061 & 42.3104  \\
+		1 & 536870912 & 960.1842  & 962.2445 &965.7920    \\
+		\hline
+		16 & 1048576 &0.7371 & 0.7609 & 0.7933  \\ 
+		16 & 16777216 &13.0410 &13.5706 & 13.7108   \\
+		16 & 536870912 & 249.1582  & 252.7172 &253.0346   \\
+		\hline
+		64 & 1048576 & 0.3237 &0.3507 & 0.3698  \\ 
+		64 & 16777216 & 4.6372 & 4.8011 & 4.9817  \\
+		64 & 536870912 & 84.4920  & 84.8709 &85.0027   \\
+		\hline
+		256 & 1048576 & 0.1206 & 0.1316 & 0.1347  \\ 
+		256 & 16777216 & 1.0517 & 1.0968 & 1.1472  \\
+		256 & 536870912 & 26.5017  & 26.7431 &26.9204\\
+		\hline
+		1024 & 1048576 & 0.0863 & 0.0876 & 0.0900  \\
+		1024 & 16777216 & 0.3921 & 0.4116 & 0.4703  \\
+		1024 & 536870912 & 17.7427  & 18.1078 &18.2586 \\
+		\hline 
+		\end{tabular}
+		\label{table:cudamerge} % is used to refer this table in the text
+		\end{table}
+		The CUDA results seen are not quite as expected. With 1 thread, they are somewhat slow, but quickly outpaced the other methods, resulting in a huge 54 times speedup from 1 thread to 16.  We see the fastest is with 1024 threads, which is due to the fact that CUDA cores are very capable of handling lots of threads due to CUDA threads being very lightweight.
+
+\subsection{FFT Analysis}
+	Everything was run the same way as stated under Mergesort Analysis. Additionally, due to how the cuFFT library functions, we were unable to specify the number of threads we wanted fft\_cuda to use, hence the single set of results.
+
+	\begin{table}[ht]
+		\caption{OMP FFT Results} 
+		\centering  
+		\begin{tabular}{c c | c c c} 
+		\hline\hline                        
+		\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+		%heading
+		\hline                 
+		1 & 4096 & 2.0003 & 2.0206 & 2.0618  \\ 
+		1 & 8192 & 4.1378 & 4.1572 & 4.1954  \\
+		1 & 16384 & 38.8926  & 39.1751 &39.4224    \\
+		\hline
+		2 & 4096 & 1.7460 & 1.7601 & 1.7935  \\ 
+		2 & 8192 & 2.4009 &2.4110 & 2.4239  \\
+		2 & 16384 & 27.3506  & 27.4622 &27.6385   \\
+		\hline
+		4 & 4096 & 0.9093 & 0.9230 & 0.9398  \\ 
+		4 & 8192 & 1.2367 & 1.2473 & 1.2599  \\
+		4 & 16384 & 9.2771  & 9.3498 &9.5124   \\
+		\hline
+		8 & 4096 & 0.5493 & 0.5550 & 0.5600  \\ 
+		8 & 8192 & 1.2294 & 1.2378 & 1.2521  \\
+		8 & 16384 & 9.1724  & 9.2878 &9.4727   \\
+		\hline
+		16 & 4096 & 0.4766 & 0.4872 & 0.4898  \\
+		16 & 8192 & 0.6388 & 0.6444 & 0.6551  \\
+		16 & 16384 & 7.7873  & 7.9243 &8.1649 \\
+		\hline 
+		\end{tabular}
+		\label{table:ompfft} % is used to refer this table in the text
+	\end{table}
+
+	Results are as expected with about a 5 times speedup from 1 thread to 16 threads.  Although between 4 threads and 8 threads on larger data shows little improvement.  This most likely is due to the memory access patterns with more threads working putting more stress on the cache than fewer threads, as even with 16 threads there is only marginal speedup from the 4 or 8 thread numbers.
+
+	\begin{table}[ht]
+	\caption{MPI FFT Results} 
+	\centering  
+	\begin{tabular}{c c | c c c} 
+	\hline\hline                        
+	\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+	%heading
+	\hline                 
+	1 & 4096 & 1.2125 & 1.2369 & 1.2775  \\ 
+	1 & 8192 & 4.5820 & 4.5919 & 4.6027  \\
+	1 & 16384 & 24.1551  & 24.3249 &24.4464    \\
+	\hline
+	2 & 4096 & 0.7522& 0.7620 & 0.7771  \\ 
+	2 & 8192 &2.8941 &2.9187 & 2.9636  \\
+	2 & 16384 & 14.7983 & 14.8988 &15.2689   \\
+	\hline
+	4 & 4096 & 0.3908& 0.4108 &0.4439  \\ 
+	4 & 8192 & 1.5354 &1.5847 & 1.6724  \\
+	4 & 16384 & 7.8896  & 7.9311 &8.0454   \\
+	\hline
+	8 & 4096 &1.2739 & 1.3054 & 1.3537  \\ 
+	8 & 8192 & 4.3689 & 4.5561 & 4.6553  \\
+	8 & 16384 & 19.4869  & 19.8218 &20.1919   \\
+	\hline
+	16 & 4096 & 0.8664 & 0.8929 & 0.9432  \\
+	16 & 8192 & 3.7787 & 3.8327 & 3.9942  \\
+	16 & 16384 & 16.3546  & 16.7879 &17.3436 \\
+	\hline 
+	\end{tabular}
+	\label{table:mpifft} % is used to refer this table in the text
+	\end{table}
+	The results from MPI are interesting, as it hit massive performance drop offs once more than one processor became  involved.  The obvious factor to blame here is network communication.  Even the difference between 8 processes and 16 processes is smaller than what would be expected, adding further credence to network communication being the problem.
+
+	\begin{table}[ht]
+	\caption{CUDA FFT Results} 
+	\centering  
+	\begin{tabular}{c c | c c c} 
+	\hline\hline                        
+	\# Threads & Array Size & min  & med & max\\ [0.5ex] % inserts table 
+	%heading
+	\hline                 
+	~448 & 4096 & 0.00194 & 0.00196 & 0.00197  \\ 
+	~448 & 8192 & 0.00698 & 0.00702 & 0.00704  \\
+	~448 & 16384 & 0.02498  & 0.02523 &0.02581    \\
+	\hline 
+	\end{tabular}
+	\label{table:cudafft} % is used to refer this table in the text
+	\end{table}
+	The results for CUDA are what was expected, since  FFT is highly numerical, and GPUs are made for highly parallel numerical calculations, this is a bit of a sweet spot in terms of the kinds of applications a GPU is suited to run.  Additionally CUDA's 448 cores all with the same access to memory gives it a distinct advantage over MPI and OMP.
+
+\section{Conclusion}
+	While, OMP was the most programmer friendly and easiest to implement, it by far performed the slowest in completing mergesort regardless of data size or number of threads.  Due to its relative laconic performance OMP places the worst in our evaluation on mergesort.  While CUDA outperforms MPI once it reaches a significantly high enough number of threads, 256, using 64 threads it is still significantly slower than MPI using 16 threads.  For that reason, and its sharp learning curve and difficulty of use, CUDA is second for our assessment of mergesort.  MPI finishes first, because of its relative ease of use compared to CUDA, and its significant speed advantage at 16 threads over both CUDA and OMP.
+
+	When it comes to FFT, CUDA's performance using the cuFFT library trounces the FFTW libraries used in the MPI and OMP implementation. Because, OMP and MPI shared the same issues of programmability, that stemmed from the implementation of the library itself.  For that reason OMP places second due to time, while MPI is in last due to its slowdown with more threads.  
+
+	Overall, the results seem to indicate that use of CUDA on the GPU will result in the fastest times for parallel algorithms on average. Of course, the biggest barrier here is the need for specialized hardware.  However, the rise of GPUs within high-performance computing (as seen in Titan) means that in the future this barrier will be less and less of an issue.
+
+\section{Sources Consulted}
+	For OMP and MPI mergesort code research:
+	\url{http://www1.chapman.edu/~radenski/research/papers/mergesort-pdpta11.pdf}
+
+	For FFTW implementation:
+	\url{http://micro.stanford.edu/wiki/Install\_FFTW3}
+
+	FFTW homepage:
+	\url{http://www.fftw.org/}
+
+\appendix
+	Source code is attached.\\
+	\onecolumn
+	\definecolor{dkgreen}{rgb}{0,0.6,0}
+	\definecolor{gray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+	\lstset{language=C,
+			showstringspaces=false,
+			columns=flexible,
+			basicstyle={\small\ttfamily},
+			numbers=none,
+			numberstyle=\tiny\color{gray},
+			keywordstyle=\color{blue},
+			commentstyle=\color{dkgreen},
+			stringstyle=\color{mauve},
+			breaklines=true,
+			breakatwhitespace=true
+			tabsize=4,
+			% title=\lstname
+		}
+	\lstinputlisting[title=merge\_omp.cc]{mergesort/merge_omp.cc}
+	\pagebreak
+	\lstinputlisting[title=merge\_mpi.c]{mergesort/merge_mpi.c}
+	\lstinputlisting[title=fft\_omp.c]{fft/fft_omp.c}
+	\lstinputlisting[title=fft\_mpi.c]{fft/fft_mpi.c}
+	\pagebreak
+	\lstinputlisting[title=fft\_cuda.cu]{fft/fft_cuda.cu}
+
+\end{document}          
